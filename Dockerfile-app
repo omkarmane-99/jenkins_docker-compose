@@ -1,0 +1,14 @@
+FROM ubuntu/apache2
+RUN apt-get update
+RUN apt-get dist-upgrade -y
+RUN apt-get install sudo python3-pip git -y
+RUN pip install pymysql
+RUN a2dismod mpm_event
+RUN a2enmod mpm_prefork cgi
+RUN service apache2 restart
+ADD "https://s3.amazonaws.com/richbourg-s3/mtwa/app/ports.conf"  /etc/apache2/sites-enabled/
+ADD "https://s3.amazonaws.com/richbourg-s3/mtwa/app/000-default.conf" /etc/apache2/
+EXPOSE 8080
+RUN service apache2 restart
+RUN git clone https://gitlab.com/priyaank1671/devops_test
+RUN cd devops_test && bash install.sh

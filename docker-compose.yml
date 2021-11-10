@@ -1,0 +1,19 @@
+version: '3.3'
+services:
+  web:
+    image: pb/web-server
+    container_name: web-server
+    ports:
+      - 80:80
+
+  app:
+    image: pb/app-server
+    container_name: app-server
+    ports:
+      - 8080:8080
+
+  db:
+    image: pb/sql-server
+    container_name: mysql-server
+    ports:
+      - 3306:3306
